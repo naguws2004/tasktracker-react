@@ -5,16 +5,24 @@ import Header from './components/Header'
 import AddTask from './components/AddTask'
 import Tasks from './components/Tasks'
 import { fetchTasks, updateTasks } from "./backend/apiEngine"
+import { useSelector, useDispatch } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { actionCreators } from './state/index'
 
 function App() {
   const name = "Nagesh K";
   const [showAddTask, setShowAddTask] = useState(false)
-  const [tasks, setTasks] = useState([])
+  //const [tasks, setTasks] = useState([])
+
+  const tasks = useSelector((state)=> state.tasksList)
+  const dispatch = useDispatch()
+  const { updateTasksInStore } = bindActionCreators(actionCreators, dispatch)
 
   useEffect(()=>{
     const getTasks = async()=>{ 
         const data = await fetchTasks()
-        setTasks(data)
+        updateTasksInStore(data)
+        //setTasks(data)
     }
     getTasks()
   },[])
@@ -22,7 +30,8 @@ function App() {
   // Refresh Data from server
   const refreshData = async()=>{ 
     const data = await fetchTasks()
-    setTasks(data)
+    updateTasksInStore(data)
+    //setTasks(data)
   }
 
   // Save Data to server
@@ -34,21 +43,28 @@ function App() {
   const addTask = (task) => {
     const TaskId = Math.floor(Math.random() * 1000) + 1
     const newTask = { TaskId, ...task }
-    setTasks([...tasks, newTask])
+    updateTasksInStore([...tasks, newTask])
+    //setTasks([...tasks, newTask])
   }
 
   // Delete Task in local cache
   const deleteTask = (taskId) => {
-    setTasks(tasks.filter((task)=>task.TaskId!==taskId))
+    updateTasksInStore(tasks.filter((task)=>task.TaskId!==taskId))
+    //setTasks(tasks.filter((task)=>task.TaskId!==taskId))
   }
 
   // Toggle Reminder in local cache
   const toggleReminder = (taskId) => {
-    setTasks(
+    updateTasksInStore(
       tasks.map((task) =>
         task.TaskId === taskId ? { ...task, Remind: !task.Remind } : task
       )
     )
+    // setTasks(
+    //   tasks.map((task) =>
+    //     task.TaskId === taskId ? { ...task, Remind: !task.Remind } : task
+    //   )
+    // )
   }
 
   return (
