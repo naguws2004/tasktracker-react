@@ -12,7 +12,7 @@ const Task = ({task, onDelete, onToggle}) => {
             onClick={() => onDelete(task.TaskId)} 
           />
         </h3>
-        <p>{task.TaskDateTime}</p>
+        <p>{JSON.stringify(task.TaskDateTime)}</p>
     </div>
   )
 }

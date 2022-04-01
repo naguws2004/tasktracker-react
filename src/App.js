@@ -16,7 +16,7 @@ function App() {
   const tasks = useSelector((state)=> state.tasksList)
   const dispatch = useDispatch()
   const { updateTasksInStore } = bindActionCreators(actionCreators, dispatch)
-
+  
   useEffect(()=>{
     const getTasks = async()=>{ 
         const data = await fetchTasks()
