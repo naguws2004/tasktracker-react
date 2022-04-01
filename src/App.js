@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react"
+import { useSelector, useDispatch } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import Welcome from './components/Welcome' 
 import Menu from './components/Menu'
 import Header from './components/Header' 
 import AddTask from './components/AddTask'
 import Tasks from './components/Tasks'
-import { fetchTasks, updateTasks } from "./backend/apiEngine"
-import { useSelector, useDispatch } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { actionCreators } from './state/index'
+import { fetchTasks, saveTask, updateTask, deleteTask, updateTasks } from "./backend/apiEngine"
 
 function App() {
   const name = "Nagesh K";
-  const [showAddTask, setShowAddTask] = useState(false)
   //const [tasks, setTasks] = useState([])
-
+  const [showAddTask, setShowAddTask] = useState(false)
   const tasks = useSelector((state)=> state.tasksList)
   const dispatch = useDispatch()
   const { updateTasksInStore } = bindActionCreators(actionCreators, dispatch)
@@ -40,26 +39,30 @@ function App() {
   }
 
   // Add Task in local cache
-  const addTask = (task) => {
+  const addATask = async(task) => {
     const TaskId = Math.floor(Math.random() * 1000) + 1
     const newTask = { TaskId, ...task }
     updateTasksInStore([...tasks, newTask])
+    saveTask(newTask)
     //setTasks([...tasks, newTask])
   }
 
   // Delete Task in local cache
-  const deleteTask = (taskId) => {
-    updateTasksInStore(tasks.filter((task)=>task.TaskId!==taskId))
+  const deleteATask = async(taskId) => {
+    const remainingTasks = tasks.filter((task)=>task.TaskId!==taskId)
+    updateTasksInStore(remainingTasks)
+    deleteTask(taskId)
     //setTasks(tasks.filter((task)=>task.TaskId!==taskId))
   }
 
   // Toggle Reminder in local cache
-  const toggleReminder = (taskId) => {
+  const toggleReminder = async(taskId) => {
     updateTasksInStore(
       tasks.map((task) =>
         task.TaskId === taskId ? { ...task, Remind: !task.Remind } : task
       )
     )
+    updateTask(taskId)
     // setTasks(
     //   tasks.map((task) =>
     //     task.TaskId === taskId ? { ...task, Remind: !task.Remind } : task
@@ -76,11 +79,11 @@ function App() {
         <Menu onRefreshClick={refreshData} onSaveClick={()=>saveData({tasks})} />
         <Header onAddClick={()=> setShowAddTask(!showAddTask)} showAddTask={showAddTask} />
         {
-          showAddTask && <AddTask onAdd={addTask} />
+          showAddTask && <AddTask onAdd={addATask} />
         }
         { 
           tasks.length > 0 
-          ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
+          ? <Tasks tasks={tasks} onDelete={deleteATask} onToggle={toggleReminder} />
           : <div style={{display: 'flex', justifyContent: 'center'}}>No Tasks to Show</div>
         }
       </div>
