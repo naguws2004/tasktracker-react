@@ -2,7 +2,7 @@
 
 ### This project demonstartes a simple Task Tracker.
 
-#### This repo contains React JS code part of a simple Task Tracker project developed using React, Redux, Node, Express, Mongo and ASP.Net Core Web API
+#### This repo contains React and Redux code part of the simple Task Tracker project developed using React, Redux, Node, Express, Mongo and ASP.Net Core Web API
 
 ### Partially working App is available at: https://nag-tasks-tracker.netlify.app/
 
