@@ -1,7 +1,7 @@
-import Urls from './constants'
+import configData from '../config.json'
 
 const fetchTasks = async() => {
-    const res = await fetch(Urls.getUrl, {
+    const res = await fetch(configData.Urls.getUrl, {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -15,8 +15,7 @@ const fetchTasks = async() => {
 const updateTasks = async(data) => {
     var json = data
     var tasks=json[Object.keys(json)[0]]; 
-    alert(JSON.stringify(tasks))
-    await fetch(Urls.updateTasksUrl, {
+    await fetch(configData.Urls.updateTasksUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
