@@ -1,9 +1,9 @@
 {
     "Urls": {
-        "getUrl": "http://localhost:200/api/tasks",
-        "postUrl": "http://localhost:200/api/tasks",
-        "putUrl": "http://localhost:200/api/tasks",
-        "deleteUrl": "http://localhost:200/api/tasks",
-        "updateTasksUrl": "http://localhost:200/api/tasks/UpdateTasks"
+        "getUrl": "https://nag-task-tracker.herokuapp.com/api/tasks",
+        "postUrl": "https://nag-task-tracker.herokuapp.com/api/tasks",
+        "putUrl": "https://nag-task-tracker.herokuapp.com/api/tasks",
+        "deleteUrl": "https://nag-task-tracker.herokuapp.com/api/tasks",
+        "updateTasksUrl": "https://nag-task-tracker.herokuapp.com/api/tasks/UpdateTasks"
     }
 }

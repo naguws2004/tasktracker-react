@@ -76,7 +76,7 @@ function App() {
         <Welcome name={name}/>
       </div>
       <div className="container">
-        <Menu onRefreshClick={refreshData} onSaveClick={()=>saveData({tasks})} />
+        {/* <Menu onRefreshClick={refreshData} onSaveClick={()=>saveData({tasks})} /> */}
         <Header onAddClick={()=> setShowAddTask(!showAddTask)} showAddTask={showAddTask} />
         {
           showAddTask && <AddTask onAdd={addATask} />
