@@ -3,7 +3,7 @@ import Button from './Button'
 
 const Header = ({ title, onAddClick, showAddTask }) => {
     return (
-    <header className='header'>
+    <header className='header2'>
         <h1 style={headingStyle}>{title}</h1>
         <Button 
             color={showAddTask ? '#900C3F' : 'green'} 

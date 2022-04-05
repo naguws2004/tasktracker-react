@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { useAuth0 } from "@auth0/auth0-react"
 import Welcome from './components/Welcome' 
 import Menu from './components/Menu'
 import Header from './components/Header' 
@@ -10,8 +11,8 @@ import { actionCreators } from './state/index'
 import { fetchTasks, saveTask, updateTask, deleteTask, updateTasks } from "./backend/apiEngine"
 
 function App() {
-  const name = "Nagesh K";
   //const [tasks, setTasks] = useState([])
+  const { isAuthenticated } = useAuth0()
   const [showAddTask, setShowAddTask] = useState(false)
   const tasks = useSelector((state)=> state.tasksList)
   const dispatch = useDispatch()
@@ -73,22 +74,27 @@ function App() {
   return (
     <>
       <div className="welcome">
-        <Welcome name={name}/>
+        <Welcome />
       </div>
-      <div className="container">
-        {/* <Menu onRefreshClick={refreshData} onSaveClick={()=>saveData({tasks})} /> */}
-        <Header onAddClick={()=> setShowAddTask(!showAddTask)} showAddTask={showAddTask} />
-        {
-          showAddTask && <AddTask onAdd={addATask} />
-        }
-        { 
-          tasks.length > 0 
-          ? <Tasks tasks={tasks} onDelete={deleteATask} onToggle={toggleReminder} />
-          : <div style={{display: 'flex', justifyContent: 'center'}}>No Tasks to Show</div>
-        }
-      </div>
+      {
+        isAuthenticated && 
+        (
+          <div className="container">
+            {/* <Menu onRefreshClick={refreshData} onSaveClick={()=>saveData({tasks})} /> */}
+            <Header onAddClick={()=> setShowAddTask(!showAddTask)} showAddTask={showAddTask} />
+            {
+              showAddTask && <AddTask onAdd={addATask} />
+            }
+            { 
+              tasks.length > 0 
+              ? <Tasks tasks={tasks} onDelete={deleteATask} onToggle={toggleReminder} />
+              : <div style={{display: 'flex', justifyContent: 'center'}}>No Tasks to Show</div>
+            }
+          </div>
+        ) 
+      }
     </>
-  );
+  )
 }
 
-export default App;
+export default App

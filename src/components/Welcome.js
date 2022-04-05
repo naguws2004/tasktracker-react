@@ -1,24 +1,82 @@
 import PropTypes from 'prop-types'
+import { useAuth0 } from "@auth0/auth0-react"
 
-const Welcome = ({ name }) => {
+const Welcome = () => {
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0()
+  
   return (
-    <h3 style={ welcomeStyle }>Welcome {name}!</h3>
+    isAuthenticated ? 
+    (
+      <div className='header1'>
+        <h3 
+            style={ welcomeStyle }>
+          &nbsp;
+          <img 
+              src={user.picture}
+              style={ imgStyle } 
+              alt={user.name} />
+          &nbsp;Hi {user.name}!
+        </h3>
+        <button 
+            style={ buttonStyle2 }
+            className='btn'
+            onClick={() => logout() }>
+            Logout
+        </button>
+      </div>
+    ) :
+    (
+      <div className='header1'>
+        <h3 
+            style={ welcomeStyle }>
+          &nbsp;
+          <img 
+              src="/favicon.ico"
+              style={ imgStyle } 
+              alt="Guest" />
+          &nbsp;Hi Guest!
+        </h3>
+        <button 
+            style={ buttonStyle1 }
+            className='btn'
+            onClick={() => loginWithRedirect() }>
+            Login
+        </button>
+      </div>
+    )
   )
 }
 
 const welcomeStyle = {
     display: 'flex', 
     justifyContent:'flex-end',
-    textDecorationLine: 'underline',
-    color: '#C70039'
+    alignItems: 'center',
+    color: '#900C3F'
 }
 
-Welcome.defaultProps = {
-    name: 'Guest'
+const buttonStyle1 = {
+  display: 'flex', 
+  justifyContent:'flex-start',
+  backgroundColor: 'green'
 }
 
-Welcome.propTypes = {
-    name: PropTypes.string.isRequired
+const buttonStyle2 = {
+  display: 'flex', 
+  justifyContent:'flex-end',
+  backgroundColor: '#900C3F'
 }
+
+const imgStyle = {
+  width: '40px',
+  borderRadius: '40px'
+}
+
+// Welcome.defaultProps = {
+//     name: 'Guest'
+// }
+
+// Welcome.propTypes = {
+//     name: PropTypes.string.isRequired
+// }
 
 export default Welcome

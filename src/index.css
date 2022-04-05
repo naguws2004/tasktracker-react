@@ -28,12 +28,21 @@ body {
   border-radius: 5px;
 }
 
-.header {
+.header1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+  margin-bottom: 0px;
+  border: 1px solid steelblue;
+}
+
+.header2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border: 1px solid steelblue;
 }
 
