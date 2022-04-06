@@ -1,20 +1,23 @@
 import { useState } from "react"
 import DateTimePicker from 'react-datetime-picker';
+import { useAuth0 } from "@auth0/auth0-react"
 
 const AddTask = ({onAdd}) => {
   const [TaskName, setTaskName] = useState('')
   const [TaskDateTime, setTaskDateTime] = useState(new Date())
   const [Remind, setReminder] = useState(false)
+  const { user, isAuthenticated } = useAuth0()
 
   const onSubmit = (e) => {
     e.preventDefault()
 
     if (!TaskName) {
-      alert("Please add Task Name!")
+      isAuthenticated && alert("Please add Task Name!")
       return
     }
 
-    onAdd({TaskName, TaskDateTime, Remind})
+    const EmailId = user.email
+    onAdd({EmailId, TaskName, TaskDateTime, Remind})
 
     setTaskName('')
     setTaskDateTime(new Date())

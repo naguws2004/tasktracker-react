@@ -1,7 +1,7 @@
 import configData from '../config.json'
 
-const fetchTasks = async() => {
-    const res = await fetch(configData.Urls.getUrl, {
+const fetchTasks = async(data) => {
+    const res = await fetch(configData.Urls.getUrl + '/' + data, {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -9,11 +9,12 @@ const fetchTasks = async() => {
             },
         },
     )
-    const data = await res.json()
-    return data
+    const result = await res.json()
+    return result
 }
 
 const saveTask = async(data) => {
+    alert('Adding new task "' + data.TaskName + '"')
     await fetch(configData.Urls.postUrl, {
         method: 'POST',
         mode: 'cors',
@@ -25,7 +26,8 @@ const saveTask = async(data) => {
 }
 
 const updateTask = async(data) => {
-    await fetch(configData.Urls.putUrl + '/' + data, {
+    alert('Updating reminder for task "' + data.TaskName + '"')
+    await fetch(configData.Urls.putUrl + '/' + data.TaskId, {
         method: 'PUT',
         mode: 'cors',
         headers: {
@@ -35,7 +37,8 @@ const updateTask = async(data) => {
 }
 
 const deleteTask = async(data) => {
-    await fetch(configData.Urls.deleteUrl + '/' + data, {
+    alert('Deleting task "' + data.TaskName + '"')
+    await fetch(configData.Urls.deleteUrl + '/' + data.TaskId, {
         method: 'DELETE',
         mode: 'cors',
         headers: {

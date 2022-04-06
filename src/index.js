@@ -11,14 +11,14 @@ const domain = 'dev-4ts2gaz2.us.auth0.com'
 const clientId = '26itf3iAVNMpXB9m93xBkJaECTmj0eDW'
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Auth0Provider 
-      domain={domain} 
-      clientId={clientId}
-      redirectUri={window.location.origin}>
+  <Auth0Provider 
+    domain={domain} 
+    clientId={clientId}
+    redirectUri={window.location.origin}>
+    <Provider store={store}>
         <App />
-    </Auth0Provider>
-  </Provider>,
+    </Provider>
+  </Auth0Provider>,
   document.getElementById('root')
 );
 

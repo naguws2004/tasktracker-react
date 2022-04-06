@@ -4,6 +4,15 @@ import { useAuth0 } from "@auth0/auth0-react"
 const Welcome = () => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0()
   
+  const getUserPicUri = ()=>{ 
+    try {
+      const picUri = user.picture
+      return picUri
+    } catch(err) {
+      return ''
+    }
+  }
+
   return (
     isAuthenticated ? 
     (
@@ -12,10 +21,10 @@ const Welcome = () => {
             style={ welcomeStyle }>
           &nbsp;
           <img 
-              src={user.picture}
+              src={getUserPicUri()}
               style={ imgStyle } 
               alt={user.name} />
-          &nbsp;Hi {user.name}!
+          &nbsp;Hi {user.name}! 
         </h3>
         <button 
             style={ buttonStyle2 }
