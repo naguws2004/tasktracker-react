@@ -10,6 +10,7 @@ const fetchTasks = async(data) => {
         },
     )
     const result = await res.json()
+    alert('Tasks retrieved. No. of tasks: ' + result.length)
     return result
 }
 

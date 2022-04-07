@@ -43,11 +43,11 @@ function App() {
 
   // Refresh Data from server
   const refreshData = async()=>{ 
+    setIsDataLoaded(true)
     const emailId = await getUserEmailId()
     const data = await fetchTasks(emailId)
     updateTasksInStore(data)
     //setTasks(data)
-    setIsDataLoaded(true)
   }
 
   // Save Data to server
