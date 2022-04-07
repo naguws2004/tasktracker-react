@@ -29,18 +29,20 @@ const AddTask = ({onAdd}) => {
         <div className="form-control">
             <span>
               <label>Task Name</label>
-              <input type="text" placeholder="Add Task Name" value={TaskName}
+              <input className="form-control-input" type="text" placeholder="Add Task Name" value={TaskName}
                 onChange={(e) => setTaskName(e.target.value)} />
             </span>
         </div>
-        <div className="form-control form-control-check">
-            <span>
+        <div className="form-control">
+        <span>
               <label>Task Date & Time</label>
-              &nbsp;<DateTimePicker onChange={(e) => setTaskDateTime(e)} value={TaskDateTime} />
+              &nbsp;<DateTimePicker className="form-control-datetime" onChange={(e) => setTaskDateTime(e)} value={TaskDateTime} />
             </span>
+        </div>
+        <div className="form-control">
             <span>
               <label>Set Reminder</label>
-              <input type="checkbox" checked={Remind}
+              <input className="form-control-check" type="checkbox" checked={Remind}
                   onChange={(e) => setReminder(e.currentTarget.checked)} />
             </span>
         </div>
